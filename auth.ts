@@ -24,12 +24,16 @@ export const {
     }
   },
   callbacks: {
-    async signIn({ user }) {
-      console.log(user)
+    async signIn({ user, account }) {
+      //Allow OAuth without email verification
+      if (account?.provider !== "credentials") return true;
+
       const existingUser = await getUserById(user.id)
-      // if (!existingUser || !existingUser.emailVerified) {
-      //   return false
-      // }
+
+      // Prevent sign in without email verification
+      if (!existingUser?.emailVerified) {
+        return false
+      }
 
       return true
     },
