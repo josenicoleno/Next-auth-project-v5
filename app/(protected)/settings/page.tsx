@@ -1,7 +1,7 @@
 "use client"
 
 import { logout } from "@/actions/logout";
-import { userCurrentUser } from "@/hooks/user-current-user";
+import { userCurrentUser } from "@/hooks/use-current-user";
 
 const SettingPage = () => {
   const user = userCurrentUser()

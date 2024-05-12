@@ -12,7 +12,7 @@ import {
     AvatarFallback,
 } from '@/components/ui/avatar'
 import { FaUser } from 'react-icons/fa'
-import { userCurrentUser } from '@/hooks/user-current-user'
+import { userCurrentUser } from '@/hooks/use-current-user'
 import { LogoutButton } from './logout-button'
 import { ExitIcon } from '@radix-ui/react-icons'
 
