@@ -16,6 +16,7 @@ import Link from "next/link"
 
 export const LoginForm = () => {
     const seachParams = useSearchParams();
+    const callbackUrl = seachParams.get("callbackUrl")
     const urlError = seachParams.get("error") === "OAuthAccountNotLinked" ? "Email already use in other provider" : ""
 
     const [showTwoFactor, setShowTwoFactor] = useState(false)
@@ -35,19 +36,20 @@ export const LoginForm = () => {
         setError("")
         setSuccess("")
         startTransition(() => {
-            login(values).then((data) => {
-                if (data?.error) {
-                    form.reset()
-                    setError(data?.error)
-                }
-                if (data?.success) {
-                    form.reset()
-                    setSuccess(data?.success)
-                }
-                if (data?.twoFactor) {
-                    setShowTwoFactor(true)
-                }
-            }).catch(() => setError("Something went wrong!"))
+            login(values, callbackUrl)
+                .then((data) => {
+                    if (data?.error) {
+                        form.reset()
+                        setError(data?.error)
+                    }
+                    if (data?.success) {
+                        form.reset()
+                        setSuccess(data?.success)
+                    }
+                    if (data?.twoFactor) {
+                        setShowTwoFactor(true)
+                    }
+                }).catch(() => setError("Something went wrong!"))
         })
     }
 
