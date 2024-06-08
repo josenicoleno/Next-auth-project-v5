@@ -4,7 +4,7 @@ import { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, authRoutes, publicRoutes } from 
 
 const { auth } = NextAuth(authConfig)
 
-export default auth((req) => {
+export default auth(req => {
     const { nextUrl } = req;
     const isLoggedIn = !!req.auth
 
@@ -13,13 +13,13 @@ export default auth((req) => {
     const isAuthRoute = authRoutes.includes(nextUrl.pathname)
 
     if (isApiAuthRoute) {
-        return null
+        return
     }
     if (isAuthRoute) {
         if (isLoggedIn) {
             return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
         }
-        return null
+        return
     }
     if (!isLoggedIn && !isPublicRoute) {
         let callbackUrl = nextUrl.pathname
@@ -29,7 +29,7 @@ export default auth((req) => {
         const encodedCallbackUrl = encodeURIComponent(callbackUrl)
         return Response.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl))
     }
-    return null
+    return
 })
 
 // Optionally, don't invoke Middleware on some paths

@@ -75,7 +75,7 @@ export const ResetForm = () => {
                         disabled={isPending}
                         className="w-full"
                     >
-                        Send reset password
+                        Reset password
                     </Button>
                 </form>
             </Form>
